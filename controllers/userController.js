@@ -19,32 +19,48 @@ let register = function (req, res) {
 				maxAge: 3600000,
 				httpOnly: true
 			})
-			res.redirect('/parent-dashboard');
+			if (user.role === 'parent') {
+				res.redirect('/parent-dashboard');
+			} else if (user.role === 'admin') {
+				res.redirect('/admin-dashboard');
+			} else if (user.role === 'teacher') {
+				res.redirect('/teacher-dashboard');
+			}
 		})
 		.catch(e => {
 			console.log(e);
 		})
-		
+
 }
 let login = function (req, res) {
 	let data = req.body;
+	let findedUser;
 	User.findOne({
 		email: data.email,
 		password: data.password
 	}).then((user) => {
+		
+		findedUser = user;
 		return user.generateAuthToken()
 	})
-	.then(token =>{
-		res.cookie('access_token', token, {
-			maxAge: 3600000,
-			httpOnly: true
+		.then(token => {
+			res.cookie('access_token', token, {
+				maxAge: 3600000,
+				httpOnly: true
+			})
+			if (findedUser.role === 'parent') {
+				res.redirect('/parent-dashboard');
+			} else if (findedUser.role === 'admin') {
+				res.redirect('/admin-dashboard');
+			} else if (findedUser.role === 'teacher') {
+				res.redirect('/teacher-dashboard');
+			}
+
 		})
-		res.redirect('/parent-dashboard');
-	})
-	.catch(e => {
-		console.log(e);
-		res.redirect('/login');
-	})
+		.catch(e => {
+			console.log(e);
+			res.redirect('/login');
+		})
 }
 let logout = function (req, res) {
 	let token = req.cookies.access_token;
