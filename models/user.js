@@ -5,34 +5,41 @@ const jwt = require('jsonwebtoken');
 let UserSchema = new mongoose.Schema({
 	firstName: {
 		type: String,
-		required: [true, 'User first-name required'],
-		minlength: 1,
+		required: [function () {
+			return this.role === 'parent'
+		}, 'User first-name required'],
 		maxlength: 25,
 		trim: true,
 	},
 	lastName: {
 		type: String,
-		required: [true, 'User last-name required'],
-		minlength: 1,
+		required: [function () {
+			return this.role === 'parent'
+		}, 'User last-name required'],
 		maxlength: 25,
 		trim: true,
 	},
 	nationalCode: {
 		type: Number,
-		required: [true, 'User last-name required'],
+		required: [function () {
+			return this.role === 'parent'
+		}, 'User last-name required'],
 		maxlength: 10,
 		unique: true,
 	},
 	fatherName: {
 		type: String,
-		required: [true, 'User father-name required'],
-		minlength: 1,
+		required: [function () {
+			return this.role === 'parent'
+		}, 'User father-name required'],
 		maxlength: 25,
 		trim: true,
 	},
 	birthdate: {
 		type: Date,
-		required: [true, 'User birthday required'],
+		required: [function () {
+			return this.role === 'parent'
+		}, 'User birthday required'],
 	},
 	gradeId: {
 		type: Number,
@@ -42,6 +49,29 @@ let UserSchema = new mongoose.Schema({
 		// 	},
 		// 	message: props => `${probs.value} is not valid class number`
 		// }
+	},
+	grades: [{
+		gradeId: {
+			type: Number,
+			required: [function () {
+				return this.role === 'teacher'
+			}, 'teacher gradeId required']
+		}
+	}],
+	teacherInfo: {
+		degree: {
+			type: String,
+			required: [function () {
+				return this.role === 'teacher'
+			}, 'teacher degree required']
+		},
+		experience: {
+			type: String,
+			required: [function () {
+				return this.role === 'teacher'
+			}, 'teacher experience required']
+		}
+
 	},
 	email: {
 		type: String,
