@@ -26,6 +26,9 @@ hbs.registerHelper('ifCond', function(v1, v2, options) {
   }
   return options.inverse(this);
 });
+hbs.registerHelper('inc',function(v,options){
+	return parseInt(v) + 1;
+})
 
 const routes = require('./routes/web')(app);
 
