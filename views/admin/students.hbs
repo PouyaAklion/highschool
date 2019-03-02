@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>لیست دانش آموزان مدرسه</title>
+    <link rel="stylesheet" type="text/css" href="css/list.student.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div style="max-width: 100%;direction: rtl">
+    {{> nav}}
+</div>
+<div style="min-height: 500px">
+<table class="table mt-5 pt-3">
+    <thead>
+    <tr>
+        <th>ردیف</th>
+        <th>نام و نام خانوادگی </th>
+        <th>شماره ملی</th>
+        <th>نام پدر</th>
+        <th>تاریخ تولد</th>
+        <th>کلاس</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{!-- @php($i=0) --}}
+    {{#each students}}
+    <tr>
+        <td>{{inc @index}}</td>
+        <td>{{this.firstName}} {{this.lastName}}</td>
+        <td>{{this.nationalCode}}</td>
+        <td>{{this.fatherName}}</td>
+        <td>{{this.birthday}}</td>
+        <td>{{this.gradeId}}</td>
+    </tr>
+     {{/each}}
+
+    </tbody>
+</table>
+</div>
+<div class="col-xs-12" style="padding: 0">
+    {{> footer}}
+</div>
+</body>
+</html>

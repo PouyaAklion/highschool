@@ -40,7 +40,20 @@
 
 
                         <li class="box">
-                            <h2> کلاس : <h3>{{user.gradeId}}</h3></h2>
+                            <h2> کلاس :
+															{{#ifCond user.gradeId 1}}
+																 <h3>اول دبیرستان</h3>
+															{{/ifCond}}
+															{{#ifCond user.gradeId 2}}
+																 <h3>دوم دبیرستان</h3>
+															{{/ifCond}}
+															{{#ifCond user.gradeId 3}}
+																 <h3>سوم دبیرستان</h3>
+															{{/ifCond}}
+															{{#ifCond user.gradeId 4}}
+																 <h3>چهارم دبیرستان</h3>
+															{{/ifCond}}
+														</h2>
                         </li>
 
 
