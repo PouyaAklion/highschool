@@ -1,0 +1,25 @@
+<div id="topmenu">
+	<nav class="wrapper">
+		<ul>
+			<li><a href="/">صفحه اصلی</a></li>
+			{{#if user}}
+				{{#ifCond user.role "teacher"}}
+					<li><a href="teacher-dashboard">معلم گرامی خوش آمدید| پنل مدیریت</a></li>
+				{{/ifCond}}
+				{{#ifCond user.role "admin"}}
+					<li><a href="teacher-dashboard">مدیر گرامی خوش آمدید| پنل مدیریت</a></li>
+				{{/ifCond}}
+				{{#ifCond user.role "parent"}}
+					<li><a href="parent-dashboard">اولیا و دانش آموز گرامی خوش آمدید| پنل مدیریت</a></li>
+				{{/ifCond}}
+				<li><a href="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">خروج</a></li>
+				<form id="logout-form" action="logout" method="POST" style="display: none;"></form>
+				{{else}}
+				<li><a href="login">ورود</a></li>
+			{{/if}}
+		</ul>
+	</nav>
+</div>
+<img src="img/images.png" id="button1" style="width: 30px; height: 30px;" />
+<script src="js/jquery.js"></script>
+<script src="js/main.js"></script>

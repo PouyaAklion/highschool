@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ورود</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+{{> nav}}
+<div id="input" style="min-height: 500px;margin-top: 100px">
+    <h1>ورود</h1>
+    <form action="login" method="POST">
+        {{!-- @csrf --}}
+        <div class="container">
+    
+            <input id="email" type="email" class="" name="email" value="" required autofocus placeholder="ایمیل خود را وارد کنید...">
+            {{!-- @if ($errors->has('email'))
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+            @endif --}}
+
+
+            <input id="password" type="password" class="" name="password" required placeholder="رمز خود را وارد کنید...">
+            {{!-- @if ($errors->has('password'))
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+            @endif --}}
+
+            <button type="submit">ورود</button>
+
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+            <a href="site-home"> <button type="button" class="cancelbtn1" >بازگشت</button></a>
+            <a href="register"> <button type="button" class="cancelbtn1" >ثبت نام</button></a>
+        </div>
+    </form>
+
+</div >
+{{> footer}}
+</body>
+</html>
