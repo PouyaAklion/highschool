@@ -1,8 +1,8 @@
-let guest = function (req,res,next) {
-	let token = req.cookies.access_token;
-	if(!token){
+let guest = function (req, res, next) {
+
+	if (!req.token) {
 		next();
-	}else{
+	} else {
 		res.redirect('/');
 	}
 }
