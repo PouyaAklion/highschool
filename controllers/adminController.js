@@ -59,14 +59,14 @@ let teacherRegister = function (req, res) {
 	data.teacherInfo = teacherInfo;
 	data.grades = grades;
 	data.role = 'teacher'
-	
+
 	let user = new User(data)
 	user.save().then(() => {
 		res.cookie('message', 'معلم با موفقیت ثبت شد', { httpOnly: true });
 		res.redirect('/admin-teachers')
 	})
 		.catch(e => {
-			console.log(e);
+			console.log(`${e} ${req.__('email')}`);
 		})
 
 }
