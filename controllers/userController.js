@@ -63,8 +63,7 @@ let login = function (req, res) {
 		})
 }
 let logout = function (req, res) {
-	let token = req.cookies.access_token;
-	User.findByToken(token).then((user) => {
+	User.findByToken(req.token).then((user) => {
 		user.tokens = [];
 		return user.save();
 	})
