@@ -7,12 +7,12 @@
 					<li><a href="teacher-dashboard">معلم گرامی خوش آمدید| پنل مدیریت</a></li>
 				{{/ifCond}}
 				{{#ifCond user.role "admin"}}
-					<li><a href="admin-dashboard">مدیر گرامی خوش آمدید| پنل مدیریت</a></li>
+					<li><a href="/admin-dashboard">مدیر گرامی خوش آمدید| پنل مدیریت</a></li>
 				{{/ifCond}}
 				{{#ifCond user.role "parent"}}
-					<li><a href="parent-dashboard">اولیا و دانش آموز گرامی خوش آمدید| پنل مدیریت</a></li>
+					<li><a href="/parent-dashboard">اولیا و دانش آموز گرامی خوش آمدید| پنل مدیریت</a></li>
 				{{/ifCond}}
-				<li><a href="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">خروج</a></li>
+				<li><a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">خروج</a></li>
 				<form id="logout-form" action="logout" method="POST" style="display: none;"></form>
 				{{else}}
 				<li><a href="login">ورود</a></li>
