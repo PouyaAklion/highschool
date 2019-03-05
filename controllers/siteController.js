@@ -1,20 +1,47 @@
-let register = function(req,res){
+let { Post } = require('../models/post');
+let _ = require('lodash');
+
+let register = function (req, res) {
 	res.render('auth/register');
 }
-let login = function(req,res) {
+let login = function (req, res) {
 	res.render('auth/login');
 }
-let home = function(req,res){
+let home = function (req, res) {
 	let user = req.user;
-	res.render('site/home',{user});
+	Post.find({}).then(posts => {
+		posts = posts.map(post => {
+			return _.omit(post.toObject(), ['__v']);
+		})
+		res.render('site/home', { user, posts });
+	})
+		.catch(e => {
+			res.render('site/home', { user });
+		})
+
 }
-let post = function(req,res){
-	res.render('site/post');
+let post = function (req, res) {
+	let user = req.user;
+	let id = req.params.id;
+	let allPosts;
+	Post.find({}).then(posts => {
+		allPosts = posts.map(post => {
+			return _.omit(post.toObject(), ['__v']);
+		})
+		return Post.findById(id);
+	})
+		.then(post => {
+			res.render('site/post', { user,post, posts: allPosts })
+		})
+		.catch(e => {
+			res.render('site/home', { user });
+		})
 }
 
 module.exports = {
 	home,
 	login,
-	register
+	register,
+	post
 
 }
