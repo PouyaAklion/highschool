@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const multer = require('multer');
 
 const { User } = require('../models/user');
 const { Post } = require('../models/post');
