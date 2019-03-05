@@ -1,5 +1,8 @@
-const { User } = require('../models/user');
 const _ = require('lodash');
+const multer = require('multer');
+
+const { User } = require('../models/user');
+const { Post } = require('../models/post');
 
 let index = function (req, res) {
 	res.render('admin/dashboard', { user: req.user });
@@ -31,9 +34,9 @@ let teachers = function (req, res) {
 }
 let teacherRegister = function (req, res) {
 	let data = req.body;
-	let teacherInfo = _.pick(data, ['experience', 'degree']);
+	let teacherInfo = _.pick(data, ['experience', 'degree', 'lesson']);
 	let dataGrade = _.pick(data, ['one', 'two', 'three', 'four']);
-	data = _.omit(data, ['experience', 'degree', 'one', 'two', 'three', 'four']);
+	data = _.omit(data, ['experience', 'degree', 'lesson', 'one', 'two', 'three', 'four']);
 	let grades = [];
 	for (let key in dataGrade) {
 		if (dataGrade.hasOwnProperty(key)) {
@@ -66,13 +69,46 @@ let teacherRegister = function (req, res) {
 		res.redirect('/admin-teachers')
 	})
 		.catch(e => {
+			res.cookie('message', req.__('email'), { httpOnly: true });
+			res.redirect('/admin-teachers');
 			console.log(`${e} ${req.__('email')}`);
 		})
+
+}
+let post = function (req, res) {
+	let message = req.cookies.message;
+	if (message) { res.clearCookie('message') }
+
+	res.render('admin/post', { user: req.user,message });
+}
+let createPost = function (req, res) {
+
+	let body = req.body;
+	let title = body.title;
+	let content = body.content;
+	let imageUrl = `uploads/${req.file.filename}`;
+	let post = new Post({
+		title,
+		content,
+		imageUrl
+	})
+	post.save()
+		.then(post => {
+			res.cookie('message', 'خبر با موفقیت ثبت شد', { httpOnly: true });
+			res.redirect('/admin-post')
+		})
+		.catch(e => {
+			res.cookie('message', 'خطا:خبر ثبت نشد', { httpOnly: true });
+			res.redirect('/admin-post')
+		})
+
 
 }
 module.exports = {
 	index,
 	students,
 	teachers,
-	teacherRegister
+	teacherRegister,
+	post,
+	createPost
 }
