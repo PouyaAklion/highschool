@@ -1,195 +1,188 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>مدیریت معلمان</title>
-    <link rel="stylesheet" type="text/css" href="css/login.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/list.teacher.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>مدیریت معلمان</title>
+	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/list.teacher.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+
 <body>
-<div style="max-width: 100%;direction: rtl">
-    {{> nav}}
-</div>
-<div class="mt-5 pt-5">
-    <div style="text-align: center">
-        <h4>ثبت نام جدید معلم</h4>
-    </div>
-    {{#if message}}
-        <div id="alert" class="alert-success mt-3">{{message}}</div>
-    {{/if}}
+	<div style="max-width: 100%;direction: rtl">
+		{{> nav}}
+	</div>
+	<div class="mt-5 pt-5">
+		<div style="text-align: center">
+			<h4>ثبت نام جدید معلم</h4>
+		</div>
+		{{#if message}}
+		<div id="alert" class="alert-success mt-3">{{message}}</div>
+		{{/if}}
 
 
-    <form action="admin-teacher-register" method="POST" onsubmit="return checkForm()">
-        {{!-- @csrf --}}
-        <div class="container">
-            <div class="col-sm-6">
-                <input id="name" type="text" class="form-control"
-                       name="firstName" value="" placeholder="نام  را وارد کنید" required autofocus>
+		<form action="admin-teacher-register" method="POST" onsubmit="return checkForm()">
+			{{!-- @csrf --}}
+			<div class="container">
+				<div class="col-sm-6">
+					<input id="name" type="text" class="form-control is-valid" name="firstName" value="" placeholder="نام  را وارد کنید"
+						required autofocus>
 
-                {{!-- @if ($errors->has('name'))
-                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                @endif --}}
 
-                <input id="last_name" type="text"
-                       class="form-control" name="lastName"
-                       value="" placeholder="نام خانوادگی  را وارد کنید" required>
+					{{!-- <span class="invalid-feedback" role="alert">
+						<strong>اسم وارد شده صحیح نمی باشد</strong>
+					</span> --}}
 
-                {{!-- @if ($errors->has('last_name'))
+
+					<input id="last_name" type="text" class="form-control is-valid" name="lastName" value="fsf"
+						placeholder="نام خانوادگی  را وارد کنید" required>
+
+					{{!-- @if ($errors->has('last_name'))
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('last_name') }}</strong>
                                     </span>
                 @endif --}}
 
 
-                <input id="national_code" type="number"
-                       class="form-control" name="nationalCode"
-                       value="" placeholder="کد ملی را وارد کنید" required>
+					<input id="national_code" type="number" class="form-control " name="nationalCode" value=""
+						placeholder="کد ملی را وارد کنید" required>
 
-                {{!-- @if ($errors->has('national_code'))
+					{{!-- @if ($errors->has('national_code'))
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('national_code') }}</strong>
                                     </span>
                 @endif --}}
 
-                <fieldset id="teacherGrades" class="">
-                    <label for="avval">اول </label>
-                    <input id="avval" type="checkbox" style="margin-left: 1.2rem" name="one">
+					<fieldset id="teacherGrades" class="">
+						<label for="avval">اول </label>
+						<input id="avval" type="checkbox" style="margin-left: 1.2rem" name="one">
 
-                    <label for="dovvom">دوم </label>
-                    <input id="dovvom" type="checkbox" style="margin-left: 1.2rem" name="two">
+						<label for="dovvom">دوم </label>
+						<input id="dovvom" type="checkbox" style="margin-left: 1.2rem" name="two">
 
-                    <label for="sevvom">سوم </label>
-                    <input id="sevvom" type="checkbox" style="margin-left: 1.2rem" name="three">
+						<label for="sevvom">سوم </label>
+						<input id="sevvom" type="checkbox" style="margin-left: 1.2rem" name="three">
 
-                    <label for="chaharom">چهارم </label>
-                    <input id="chaharom" type="checkbox" style="margin-left: 1.2rem" name="four">
-                    <span>دبیرستان</span>
-                </fieldset>
-            </div>
-            <div class="col-sm-6">
-                <select id="degree" class="box " name="degree"
-                        value="">
-                    <option value="لیسانس">لیسانس</option>
-                    <option value="فوق لیسانس">فوق لیسانس</option>
-                </select><br>
+						<label for="chaharom">چهارم </label>
+						<input id="chaharom" type="checkbox" style="margin-left: 1.2rem" name="four">
+						<span>دبیرستان</span>
+					</fieldset>
+				</div>
+				<div class="col-sm-6">
+					<select id="degree" class="box " name="degree" value="">
+						<option value="لیسانس">لیسانس</option>
+						<option value="فوق لیسانس">فوق لیسانس</option>
+					</select><br>
 
-                <input id="lesson" type="text" class="" name="lesson"
-                       value="" required autofocus placeholder="درس تدریسی">
-                {{!-- @if ($errors->has('lesson'))
+					<input id="lesson" type="text" class="" name="lesson" value="" required autofocus placeholder="درس تدریسی">
+					{{!-- @if ($errors->has('lesson'))
                     <span class="invalid-feedback" role="alert">
                                  <strong>{{ $errors->first('lesson') }}</strong>
                             </span>
                 @endif --}}
 
-                <input id="experience" type="text" class=""
-                       name="experience" value="" required autofocus
-                       placeholder="سابقه تدریس معلم">
-                {{!-- @if ($errors->has('experience'))
+					<input id="experience" type="text" class="" name="experience" value="" required autofocus
+						placeholder="سابقه تدریس معلم">
+					{{!-- @if ($errors->has('experience'))
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('experience') }}</strong>
                                     </span>
                 @endif --}}
 
 
-                <input id="email" type="email" class="" name="email"
-                       value="" required autofocus placeholder="ایمیل را وارد کنید">
-                {{!-- @if ($errors->has('email'))
+					<input id="email" type="email" class="" name="email" value="" required autofocus
+						placeholder="ایمیل را وارد کنید">
+					{{!-- @if ($errors->has('email'))
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                 @endif --}}
 
 
-                <input id="password" type="password" class=""
-                       name="password" required placeholder="رمز را وارد کنید">
-                {{!-- @if ($errors->has('password'))
+					<input id="password" type="password" class="" name="password"  placeholder="رمز را وارد کنید">
+					{{!-- @if ($errors->has('password'))
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                 @endif --}}
-                <input id="password-confirm" type="password" class="form-control" name="passwordConfirmation" required
-                       placeholder="رمز را دوباره وارد کنید">
+					<input id="password-confirm" type="password" class="form-control" name="passwordConfirmation" 
+						placeholder="رمز را دوباره وارد کنید">
 
-                <input type="submit" class="btn-main" value="ثبت نام"/>
-            </div>
-        </div>
+					<input type="submit" class="btn-main" value="ثبت نام" />
+				</div>
+			</div>
 
-    </form>
+		</form>
 
 
-</div>
-<table class="table">
-    <thead>
-    <tr>
-        <th>ردیف</th>
-        <th>نام و نام خانوادگی</th>
-        <th>شماره ملی</th>
-        <th>مدرک تحصیلی</th>
-        <th>سابقه تدریس</th>
-        <th>درس تدریس</th>
-        <th>معلم کلاس</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#each teachers}}
-        <tr>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ردیف</th>
+				<th>نام و نام خانوادگی</th>
+				<th>شماره ملی</th>
+				<th>مدرک تحصیلی</th>
+				<th>سابقه تدریس</th>
+				<th>درس تدریس</th>
+				<th>معلم کلاس</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each teachers}}
+			<tr>
 
-            <td>{{inc @index}}</td>
-            <td>{{this.firstName}} {{this.lastName}}</td>
-            <td>{{this.nationalCode}}</td>
-            <td>{{this.teacherInfo.degree}}</td>
-            <td>{{this.teacherInfo.experience}} سال</td>
-            <td>
-                {{!-- @if($teacher->teacherLessons()->first()!=null)
-                {{$teacher->teacherLessons()->first()->name}}
-                    @endif --}}
-            </td>
-            {{!-- @php($str="")
+				<td>{{inc @index}}</td>
+				<td>{{this.firstName}} {{this.lastName}}</td>
+				<td>{{this.nationalCode}}</td>
+				<td>{{this.teacherInfo.degree}}</td>
+				<td>{{this.teacherInfo.experience}} سال</td>
+				<td>{{this.teacherInfo.lesson}}</td>
+				{{!-- @php($str="")
             @foreach ($teacher->teacherLessons as $lesson)
                 @php($str.=explode(' ',$lesson->grade->name)[0].' ')
             @endforeach --}}
-            <td>{{$str}}</td>
-        </tr>
+				<td>{{$str}}</td>
+			</tr>
 
-    {{/each}}
+			{{/each}}
 
-    <tr>
+			<tr>
 
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
 
-    </tbody>
-</table>
+		</tbody>
+	</table>
 
 
-<div class="col-xs-12" style="padding: 0">
-	{{> footer}}
-</div>
-<script src="js/jquery.js"></script>
-<script>
-    $(document).ready(function () {
-        setTimeout(closeAlert, 3000);
-    })
-    function checkForm() {
-        if($('#avval').is(":checked")||$('#dovvom').is(":checked")||$('#sevvom').is(":checked")||$('#chaharom').is(":checked")){
-            return true
-        }else{
-            alert('حداقل باید یک کلاس را انتخاب کنید( اول دوم سوم چهارم)')
-            return false;
-        }
-    }
-    function closeAlert() {
-        $('#alert').addClass('d-none');
-    }
-</script>
+	<div class="col-xs-12" style="padding: 0">
+		{{> footer}}
+	</div>
+	<script src="js/jquery.js"></script>
+	<script>
+		$(document).ready(function () {
+			setTimeout(closeAlert, 3000);
+		})
+		function checkForm() {
+			if ($('#avval').is(":checked") || $('#dovvom').is(":checked") || $('#sevvom').is(":checked") || $('#chaharom').is(":checked")) {
+				return true
+			} else {
+				alert('حداقل باید یک کلاس را انتخاب کنید( اول دوم سوم چهارم)')
+				return false;
+			}
+		}
+		function closeAlert() {
+			$('#alert').addClass('d-none');
+		}
+	</script>
 </body>
+
 </html>
