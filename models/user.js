@@ -70,6 +70,12 @@ let UserSchema = new mongoose.Schema({
 			required: [function () {
 				return this.role === 'teacher'
 			}, 'teacher experience required']
+		},
+		lesson: {
+			type: String,
+			required: [function () {
+				return this.role === 'teacher'
+			}, 'teacher lesson required']
 		}
 
 	},
@@ -135,11 +141,18 @@ UserSchema.statics.findByToken = function (token) {
 }
 
 UserSchema.post('save', function (error, doc, next) {
+	let errors = [];
+	console.log(error);
 	if(error.name === 'MongoError' && error.code === 11000){
 		let indexOfUnderScore = error.errmsg.split('index')[1].indexOf('_');
 		let document = error.errmsg.split('index')[1].substring(2,indexOfUnderScore)
-		next(new Error(document))
-	}else{
+		errors.push({'path':document,'message':'duplicated'})
+		next(new Error(errors))
+	}else if(error.name === 'ValidatorError'){
+		errors.push({'path':error.name,'message':error.message})
+		next(new Error(errors))
+	}
+	else{
 		next();
 	}
 });
